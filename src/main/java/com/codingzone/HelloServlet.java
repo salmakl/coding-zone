@@ -1,6 +1,9 @@
 package com.codingzone;
 
+import com.codingzone.config.Config;
+
 import java.io.*;
+import java.sql.Connection;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -10,7 +13,14 @@ public class HelloServlet extends HttpServlet {
 
     public void init() {
         message = "Hello World!";
-    }
+        Connection conn = Config.getInstance();
+        if (conn == null) {
+            message = "Hello World! (No connection)";
+        }else {
+            message = "Hello World! (Connection)";
+        }
+        }
+
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
